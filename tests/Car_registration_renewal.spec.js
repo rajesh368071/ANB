@@ -48,7 +48,7 @@ test("Car registration renewal", async ({page, browser}) => {
     await salesSupportSRActions.openSRfromSearchResult();
     await salesSupportSRActions.clickActions();
     await salesSupportSRActions.clickAssignToMe();
-    await salesSupportSRActions.refreshSR();
+    //await salesSupportSRActions.refreshSR();
     await salesSupportSRActions.assignedTo("Auto Lease After Sales Support", "Auto Lease After Sales Support");
     await salesSupportSRActions.clickActions();
     await salesSupportSRActions.clickMarkDeptWorkasComplete();
@@ -77,8 +77,10 @@ test("Car registration renewal", async ({page, browser}) => {
     await approvalTeamSalesSupportSRActions.clickResolveRejectFromActions();
     await approvalTeamSalesSupportSRActions.clickResolveOrReject();
     await approvalTeamSalesSupportSRActions.clickSaveandClose();
-    await approvalTeamSalesSupportPage.waitForTimeout(40000);
     //End of Approval Team after sales Support
+
+    approvalTeamSalesSupportPage.close();
+    salesSupportPage.close();
 
 });
 

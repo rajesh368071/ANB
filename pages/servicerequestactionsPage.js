@@ -34,6 +34,7 @@ exports.ServiceRequestActions = class ServiceRequestActions {
     }
 
     async clickActions(){
+        await this.page.waitForTimeout(2000);
         await this.page.locator("(//a[@role='button' and .='Actions'])[1]").click();
     }
 
