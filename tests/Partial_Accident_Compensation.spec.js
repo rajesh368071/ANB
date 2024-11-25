@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { autoleasecar } = require("../test_data/requestdata");
+const { PartialAccidentcompensation } = require("../test_data/requestdata");
 const { LoginPage } = require("../pages/loginPage");
 const { HomePage } = require('../pages/homePage');
 const { ContectPage } = require('../pages/contactPage');
@@ -10,7 +10,7 @@ test.beforeEach("Launch Application URL",async ({page}) => {
     await page.goto("https://iaczkf-test.fa.ocs.oraclecloud.com/");
 });
 
-test("Car registration renewal", async ({page, browser}) => {
+test("Partial Accident Compensation", async ({page, browser}) => {
     const loginpage = new LoginPage(page);
     const homepage = new HomePage(page);
     const contactpage = new ContectPage(page);
@@ -19,20 +19,19 @@ test("Car registration renewal", async ({page, browser}) => {
     await loginpage.login("branchofficer", "Welcome@1234");
     await homepage.clickContact();
     await contactpage.selectAllContact();
-    await contactpage.selectContact(autoleasecar.contactName);
+    await contactpage.selectContact(PartialAccidentcompensation.contactName);
 
     // PBO/BO Creating Service Request
-    await createservicerequest.createServiceRequest(autoleasecar.requestname,
-        autoleasecar.requestfullname,
-        autoleasecar.accountNumber,
-        autoleasecar.problemDescription);
+    await createservicerequest.createServiceRequest(PartialAccidentcompensation.requestname,
+        PartialAccidentcompensation.requestfullname,
+        PartialAccidentcompensation.accountNumber,
+        PartialAccidentcompensation.problemDescription);
     await createservicerequest.selectFeesPaidBy("Bank");
     await createservicerequest.clickSaveandClose();
-    const srNum = await createservicerequest.OpenSR(autoleasecar.tableSRXpath);
+    const srNum = await createservicerequest.OpenSR(PartialAccidentcompensation.tableSRXpath);
     await createservicerequest.clickValidateInformation();
-    await page.waitForTimeout(10e3);
     await createservicerequest.clickSubmit();
-    await page.waitForTimeout(10e3);
+    await page.waitForTimeout(5000);
     // END
 
     // Auto Lease After Sales Support
@@ -53,9 +52,7 @@ test("Car registration renewal", async ({page, browser}) => {
     await salesSupportSRActions.assignedTo("Auto Lease After Sales Support", "Auto Lease After Sales Support");
     await salesSupportSRActions.clickActions();
     await salesSupportSRActions.clickMarkDeptWorkasComplete();
-    await salesSupportPage.waitForTimeout(10e3);
     await salesSupportSRActions.clickSubmit();
-    await salesSupportPage.waitForTimeout(10e3);
     //End of Auto Lease After Sales Support
 
 
@@ -82,8 +79,8 @@ test("Car registration renewal", async ({page, browser}) => {
     await approvalTeamSalesSupportSRActions.clickSaveandClose();
     //End of Approval Team after sales Support
 
-    approvalTeamSalesSupportPage.close();
-    salesSupportPage.close();
+    await approvalTeamSalesSupportPage.close();
+    await salesSupportPage.close();
 
 });
 

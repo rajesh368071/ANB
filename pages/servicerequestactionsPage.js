@@ -9,21 +9,30 @@ exports.ServiceRequestActions = class ServiceRequestActions {
 
     constructor(page) {
         this.page = page;
+
+        //Locators
+        this.referencenumber_loc = `Reference Number`;
+        this.find_loc = `//img[@title='Find']`;
+        this.openSR_loc = `(//table[@summary='Service Requests']//tbody//td)[2]//a`;
+        this.summary_loc = `//span[.=': Summary']`;
+        this.refresh_loc = `//img[@alt='Refresh']`;
+        this.action_loc = `(//a[@role='button' and .='Actions'])[1]`;
+        this.assigntome_loc = `//td[.='Assign to Me']`;
     }
 
     async searchSR(srNum) {
-        await this.page.getByPlaceholder("Reference Number").fill(srNum);
-        await this.page.locator("//img[@title='Find']").click();
+        await this.page.getByPlaceholder(this.referencenumber_loc).fill(srNum);
+        await this.page.locator(this.find_loc).click();
     }
 
     async openSRfromSearchResult(){
-        await this.page.locator("(//table[@summary='Service Requests']//tbody//td)[2]//a").click();
-        const ele = this.page.locator("//span[.=': Summary']");
+        await this.page.locator(this.openSR_loc).click();
+        const ele = this.page.locator(this.summary_loc);
         await ele.waitFor({state:"visible", timeout:200000});
     }
 
     async refreshSR(){
-        await this.page.locator("//img[@alt='Refresh']").click();
+        await this.page.locator(this.refresh_loc).click();
     }
 
     async assignedTo(assignTo, assignToUsername) {
@@ -35,11 +44,11 @@ exports.ServiceRequestActions = class ServiceRequestActions {
 
     async clickActions(){
         await this.page.waitForTimeout(2000);
-        await this.page.locator("(//a[@role='button' and .='Actions'])[1]").click();
+        await this.page.locator(this.action_loc).click();
     }
 
     async clickAssignToMe(){
-        await this.page.locator("//td[.='Assign to Me']").click();
+        await this.page.locator(this.assigntome_loc).click();
     }
 
     async clickMarkDeptWorkasComplete(){

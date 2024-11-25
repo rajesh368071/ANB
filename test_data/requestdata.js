@@ -1,35 +1,4 @@
-const CancellationOfApplication = {
-        requestname:"cancellation of application",
-        requestfullname: "Request > Real Estate Loans - التمويل العقاري > Loan Status / حالة التمويل > Cancellation Of Application / العميل يرغب في إلغاء طلب التمويل	",
-        accountNumber:"19021",
-        problemDescription : "Problem Description",
-        loanApplicationNumber : "1234567890",
-        loanApplicationStatus : "Approved", // Rejected
-        tableSRXpath:"Cancellation Of Application / العميل يرغب في إلغاء طلب التمويل",
-}
-
-const ecom = {
-    requestname:"E Com claims - International",
-    requestfullname:"Inquiry > E Com claims / مطالبات شراء مواقع الكترونية > E Com claims / مطالبات شراء مواقع الكترونية > E Com Claims - International / مطاالبات شراء مواقع الكترونية - دولية	",
-    accountNumber:"19021",
-    problemDescription:"Problem Descrption",
-}
-
-const clearanceletter = {
-    requestname : "Clearance letter of two salaries with obligation",
-    requestfullname : "Request > Current Account - حسابات > Clearance letter - مخالصات > Clearance letter of two salaries with obligation/خطاب تحويل راتبين بإلتزام	",
-    accountNumber : "8585295",
-    problemDescription:"Problem Description",
-    tableSRXpath:"Clearance letter of two salaries with obligation/خطاب تحويل راتبين بإلتزام",
-}
-
-const autolease = {
-    requestname : "Request to retrieve the car after towing",
-    requestfullname : "Request > Auto Lease - التمويل التأجيري للسيارات > Auto Lease Services / خدمات التمويل التأجيري > Request to retrieve the car after towing	",
-    accountNumber : "8585295",
-    problemDescription : "problem description",
-    tableSRXpath : "Request to retrieve the car after towing",
-}
+// noinspection SpellCheckingInspection
 
 const autoleasecar = {
     contactName : "ADEL HUBANI",
@@ -58,7 +27,6 @@ const CarTotalLossInquiry = {
     tableSRXpath : "Car total loss inquiry"
 }
 
-
 const NoObjectionCertificateforOwnershipTransfer = {
     contactName : "ADEL HUBANI",
     requestname : "No Objection certificate for Ownership Transfer",
@@ -85,14 +53,169 @@ const Requestlostsparekeyscompensation = {
     problemDescription : "problem description",
     tableSRXpath : "Request lost spare keys compensation"
 }
+
 const PartialAccidentcompensation = {
     contactName : "ADEL HUBANI",
     requestname : "Partial Accident compensation",
-    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Auto Lease Services /   خدمات التمويل التأجيري > Request lost spare keys compensation",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Auto Lease Services /   خدمات التمويل التأجيري > Partial Accident compensation",
     accountNumber : "8585295",
     problemDescription : "problem description",
     tableSRXpath : "Partial Accident compensation"
 }
+
+const RequestforCopyoftheCarKey= {
+    contactName : "ADEL HUBANI",
+    requestname : "Request for copy of the car key",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Auto Lease Services /   خدمات التمويل التأجيري > Request for copy of the car key",
+    accountNumber : "8585295",
+    problemDescription : "problem description",
+    tableSRXpath : "Request for copy of the car key"
+}
+
+const RequesttolinktheproductwithnewIqamah= {
+    contactName : "ADEL HUBANI",
+    requestname : "Request to link the product with new Iqama",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Auto Lease Services /   خدمات التمويل التأجيري > Request to link the product with new Iqama",
+    accountNumber : "8585295",
+    problemDescription : "problem description",
+    tableSRXpath : "Request to link the product with new Iqama"
+}
+
+const ApplicationApprovedButCarnotReceived= {
+    contactName : "ADEL HUBANI",
+    requestname : "Application Approved But Car not Received",
+    requestfullname : " Inquiry > Auto Lease / التمويل التأجيري للسيارات > Auto Lease Services > Application Approved But Car not Received",
+    accountNumber : "8585295",
+    problemDescription : "problem description",
+    tableSRXpath : "Application Approved But Car not Received"
+}
+
+const Inquiryoftherequeststatus = {
+    contactName : "ADEL HUBANI",
+    requestname : "Inquiry of the request status",
+    requestfullname : " Inquiry > Auto Lease / التمويل التأجيري للسيارات > Loan Application  - طلب التمويل > Inquiry of the request status",
+    accountNumber : "8585295",
+    problemDescription : "problem description",
+    tableSRXpath : "Inquiry of the request status"
+}
+
+const CopyofDocuments = {
+    contactName : "ADEL HUBANI",
+    requestname : "Copy of Documents",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Loan Documentation - مستندات التمويل > Copy of Documents",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Copy of Documents"
+}
+
+const LoanInstalmentisHigherthanContractTerms = {
+    contactName : "ADEL HUBANI",
+    requestname : "Loan Instalment is Higher than Contract Terms",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Loan Documentation - مستندات التمويل > Copy of Documents",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Loan Instalment is Higher than Contract Terms"
+}
+
+const Disputetotheearlysettelmentfees = {
+    contactName : "ADEL HUBANI",
+    requestname : "Dispute to the early settelment fees",
+    requestfullname : " Complaints > Auto Lease > Settlement and Financial Transaction > dispute to the early settelment fees/  الاعتراض على رسوم السداد المبكر",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Dispute to the early settelment fees"
+}
+
+const TransferamountfromCarAcctocustomerAcc = {
+    contactName : "ADEL HUBANI",
+    requestname : "Transfer amount from Car Acc to customer Acc",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Settlement And Financial Transaction /   السداد والعمليات المالية > Transfer amount from Car Acc to customer Acc",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Transfer amount from Car Acc to customer Acc"
+}
+
+const LetterofExpeditionwithTraffic = {
+    contactName : "ADEL HUBANI",
+    requestname : "Letter of Expedition with Traffic",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Settlement And Financial Transaction /   السداد والعمليات المالية > Letter of Expedition with Traffic",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Letter of Expedition with Traffic"
+}
+
+const CancelPlates = {
+    contactName : "ADEL HUBANI",
+    requestname : "Cancel Plates",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Settlement And Financial Transaction /   السداد والعمليات المالية > Cancel Plates",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Cancel Plates"
+}
+
+const RegistrationReplacement = {
+    contactName : "ADEL HUBANI",
+    requestname : "Registration Replacement",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Settlement And Financial Transaction /   السداد والعمليات المالية > Registration Replacement",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Registration Replacement"
+}
+
+const CustomerLosthisplate = {
+    contactName : "ADEL HUBANI",
+    requestname : "Customer Lost his plate",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Settlement And Financial Transaction /   السداد والعمليات المالية > Customer Lost his plate",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Customer Lost his plate"
+}
+
+const ApplyforReplacement = {
+    contactName : "ADEL HUBANI",
+    requestname : "Apply for Replacement",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Settlement And Financial Transaction /   السداد والعمليات المالية > Apply for Replacement",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Apply for Replacement"
+}
+
+const InquireforInsuranceStatement = {
+    contactName : "ADEL HUBANI",
+    requestname : "Inquire for Insurance Statement",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Settlement And Financial Transaction /   السداد والعمليات المالية > Inquire for Insurance Statement",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Inquire for Insurance Statement"
+}
+
+const PayTrafficChallan = {
+    contactName : "ADEL HUBANI",
+    requestname : "Pay Traffic Challan",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Auto Lease Services /   خدمات التمويل التأجيري > Pay Traffic Challan",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "Pay Traffic Challan"
+}
+
+const TPLPayment = {
+    contactName : "ADEL HUBANI",
+    requestname : "TPL Payment",
+    requestfullname : " Request > Auto Lease - التمويل التأجيري للسيارات > Auto Lease Services /   خدمات التمويل التأجيري > TPL Payment",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "TPL Payment"
+}
+
+const SMS = {
+    contactName : "ADEL HUBANI",
+    requestname : "SMS",
+    requestfullname : " Complaints > Current Account - حسابات > General Claims - اعتراضات عامة > SMS - شكوى رسائل الجوال",
+    accountNumber : "8585295",
+    problemDescription : "Copy of Documents",
+    tableSRXpath : "SMS - شكوى رسائل الجوال"
+}
+
 
 module.exports = {
     autoleasecar,
@@ -102,4 +225,21 @@ module.exports = {
     TransferOwnershipfromANB,
     Requestlostsparekeyscompensation,
     PartialAccidentcompensation,
+    RequestforCopyoftheCarKey,
+    RequesttolinktheproductwithnewIqamah,
+    ApplicationApprovedButCarnotReceived,
+    Inquiryoftherequeststatus,
+    CopyofDocuments,
+    LoanInstalmentisHigherthanContractTerms,
+    Disputetotheearlysettelmentfees,
+    TransferamountfromCarAcctocustomerAcc,
+    LetterofExpeditionwithTraffic,
+    CancelPlates,
+    RegistrationReplacement,
+    CustomerLosthisplate,
+    ApplyforReplacement,
+    InquireforInsuranceStatement,
+    PayTrafficChallan,
+    TPLPayment,
+    SMS,
 }

@@ -1,4 +1,5 @@
 const { expect } = require("@playwright/test");
+const { ok } = require("assert");
 
 exports.CreateServiceRequest = class CreateServiceRequest {
 
@@ -8,26 +9,45 @@ exports.CreateServiceRequest = class CreateServiceRequest {
 
     constructor(page){
         this.page = page;
+
+        //locator
+        this.serviceRequestTab_loc = `//div[contains(text(),'Service Requests')]`;
+        this.createServiceRequest_loc = `Create Service Request`;
+        this.hierarchy_loc = `//img[@alt='View in Hierarchy']`;
+        this.requestName_loc = `(//input)[21]`;
+        this.searchAll_loc = `//a[.='Search All']`;
+        this.ok_loc = `//button[@accesskey='K']`;
+        this.loanapplicationnumber_loc = `(//td//label[contains(.,'Loan Application Number')]/../../td)[2]/input`;
+        this.loanrequeststatus_loc = `((//td//label[contains(.,'Loan request status')]/../../td)[2]//input)[1]`;
+        this.problemdescription_loc = `//p[@class='ck-placeholder']`;
+        this.accountOrCardOrLoanNumber_loc = `//input[@aria-label='Account/Card/Loan Number']`;
+        this.saveclose_loc = `//button[.='Save and Close']`;
+        this.submit_loc = `//button[.='Submit']`;
+        this.buyeracquiredbank_loc = `(//td/label[.='Buyer/Acquired Bank']/../..//td)[2]//input[@role='combobox']`;
+
+        //autolease fields locator
+        this.accident = `((//td//label[contains(.,'Accidented')]/../../td)[2]//input)[1]`;
+
     }
 
     async clickServiceRequestTab() {
-        await this.page.locator("//div[contains(text(),'Service Requests')]").click();
+        await this.page.locator(this.serviceRequestTab_loc).click();
     }
 
     async clickCreateServiceRequest() {
-        await this.page.getByText("Create Service Request").click();
+        await this.page.getByText(this.createServiceRequest_loc).click();
     }
 
     async clickHierarchy() {
-        await this.page.locator("//img[@alt='View in Hierarchy']").click();
+        await this.page.locator(this.hierarchy_loc).click();
     }
 
     async enterRequestName(requestname) {
-        await this.page.locator("(//input)[21]").fill(requestname);
+        await this.page.locator(this.requestName_loc).fill(requestname);
     }
 
     async clickSearchAll() {
-        await this.page.locator("//a[.='Search All']").click();
+        await this.page.locator(this.searchAll_loc).click();
     }
 
     async clickSelectRequestSearchResult(fullrequesthierarchy) {
@@ -35,29 +55,29 @@ exports.CreateServiceRequest = class CreateServiceRequest {
     }
 
     async clickOK(){
-        await this.page.locator("//button[@accesskey='K']").click();
+        await this.page.locator(this.ok_loc).click();
     }
 
     async enterLoanApplicationNumber(loanapplicationnumber) {
-        await this.page.locator("(//td//label[contains(.,'Loan Application Number')]/../../td)[2]/input").fill(loanapplicationnumber);
+        await this.page.locator(this.loanapplicationnumber_loc).fill(loanapplicationnumber);
     }
 
     async selectLoanRequestStatus(loanrequeststatus) {
-        await this.page.locator("((//td//label[contains(.,'Loan request status')]/../../td)[2]//input)[1]").click();
+        await this.page.locator(this.loanrequeststatus_loc).click();
         await this.page.locator("//li[.='"+loanrequeststatus+"']").click();
     }
 
     async enterProblemDescription(problemdescription) {
-        await this.page.locator("//p[@class='ck-placeholder']").click();
-        await this.page.locator("//p[@class='ck-placeholder']").fill(problemdescription);
+        await this.page.locator(this.problemdescription_loc).click();
+        await this.page.locator(this.problemdescription_loc).fill(problemdescription);
     }
 
     async enterAccountLoanCardNumber(accountnumber){
-        await this.page.locator("//input[@aria-label='Account/Card/Loan Number']").fill(accountnumber);
+        await this.page.locator(this.accountOrCardOrLoanNumber_loc).fill(accountnumber);
     }
 
     async clickSaveandClose(){
-        await this.page.locator("//button[.='Save and Close']").click();
+        await this.page.locator(this.saveclose_loc).click();
     }
 
     async OpenSR(nameoftherequest){
@@ -68,7 +88,7 @@ exports.CreateServiceRequest = class CreateServiceRequest {
     }
 
     async clickSubmit(){
-        await this.page.locator("//button[.='Submit']").click();
+        await this.page.locator(this.submit_loc).click();
     }
 
     async createServiceRequest(requestname, fullrequestname, accountNumber, problemdescription) {
@@ -84,9 +104,9 @@ exports.CreateServiceRequest = class CreateServiceRequest {
     }
 
     //clearance Letter Fields
-    async selectBuyerBank(){
-        await this.page.locator("(//td/label[.='Buyer/Acquired Bank']/../..//td)[2]//input[@role='combobox']").click();
-        await this.page.locator("(//li[text()='Al Rajhi Bank'])[2]").click();
+    async selectBuyerBank(bankName){
+        await this.page.locator(this.buyeracquiredbank_loc).click();
+        await this.page.locator("(//li[text()="+bankName+"])[2]").click();
     }
 
     async enterAddress(){
@@ -116,7 +136,7 @@ exports.CreateServiceRequest = class CreateServiceRequest {
     }
 
     async selectAccidented(flag) {
-        await this.page.locator("((//td//label[contains(.,'Accidented')]/../../td)[2]//input)[1]").click();
+        await this.page.locator("").click();
         await this.page.locator("//ul[@aria-label='Accidented']//li[.='"+flag+"']").click();
     }
 

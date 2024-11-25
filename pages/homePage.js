@@ -8,6 +8,11 @@ exports.HomePage = class HomePage {
 
     constructor(page){
         this.page = page;
+
+        //locators
+        this.home_loc = `//a[@title='Home']`;
+        this.contact_loc = `Contacts`;
+        this.servicerequest_loc = `Service Requests`;
     }
 
     async clickHome(){
@@ -15,13 +20,13 @@ exports.HomePage = class HomePage {
     }
 
     async clickContact(){
-        await this.page.locator("//a[@title='Home']").click();
-        await this.page.getByText("Contacts").click();
+        await this.page.locator(this.home_loc).click();
+        await this.page.getByText(this.contact_loc).click();
     }
 
     async clickServiceRequest(){
-        await this.page.locator("//a[@title='Home']").click();
-        await this.page.getByText("Service Requests").click();
+        await this.page.locator(this.home_loc).click();
+        await this.page.getByText(this.servicerequest_loc).click();
     }
 
 }

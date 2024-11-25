@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { autoleasecar } = require("../test_data/requestdata");
+const { SMS } = require("../test_data/requestdata");
 const { LoginPage } = require("../pages/loginPage");
 const { HomePage } = require('../pages/homePage');
 const { ContectPage } = require('../pages/contactPage');
@@ -19,20 +19,17 @@ test("Car registration renewal", async ({page, browser}) => {
     await loginpage.login("branchofficer", "Welcome@1234");
     await homepage.clickContact();
     await contactpage.selectAllContact();
-    await contactpage.selectContact(autoleasecar.contactName);
+    await contactpage.selectContact(SMS.contactName);
 
     // PBO/BO Creating Service Request
-    await createservicerequest.createServiceRequest(autoleasecar.requestname,
-        autoleasecar.requestfullname,
-        autoleasecar.accountNumber,
-        autoleasecar.problemDescription);
-    await createservicerequest.selectFeesPaidBy("Bank");
+    await createservicerequest.createServiceRequest(SMS.requestname,
+        SMS.requestfullname,
+        SMS.accountNumber,
+        SMS.problemDescription);
     await createservicerequest.clickSaveandClose();
-    const srNum = await createservicerequest.OpenSR(autoleasecar.tableSRXpath);
-    await createservicerequest.clickValidateInformation();
-    await page.waitForTimeout(10e3);
+    const srNum = await createservicerequest.OpenSR(SMS.tableSRXpath);
     await createservicerequest.clickSubmit();
-    await page.waitForTimeout(10e3);
+    await page.waitForTimeout(5000);
     // END
 
     // Auto Lease After Sales Support
@@ -43,23 +40,19 @@ test("Car registration renewal", async ({page, browser}) => {
     const salesSupportSRActions = new ServiceRequestActions(salesSupportPage);
 
     await salesSupportPage.goto("https://iaczkf-test.fa.ocs.oraclecloud.com/");
-    await salesSupportLoginPage.login("autoleaseaftersalessupport", "Welcome@1234");
+    await salesSupportLoginPage.login("ccdofficer", "Welcome@1234");
     await salesSupportHomePage.clickServiceRequest();
     await salesSupportSRActions.searchSR(srNum);
     await salesSupportSRActions.openSRfromSearchResult();
-    await salesSupportSRActions.clickActions();
-    await salesSupportSRActions.clickAssignToMe();
     //await salesSupportSRActions.refreshSR();
-    await salesSupportSRActions.assignedTo("Auto Lease After Sales Support", "Auto Lease After Sales Support");
+    await salesSupportSRActions.assignedTo("CCD Officer", "CCD Officer");
     await salesSupportSRActions.clickActions();
     await salesSupportSRActions.clickMarkDeptWorkasComplete();
-    await salesSupportPage.waitForTimeout(10e3);
     await salesSupportSRActions.clickSubmit();
-    await salesSupportPage.waitForTimeout(10e3);
     //End of Auto Lease After Sales Support
 
 
-    //Approval Team after sales Support
+    // Approval Team after sales Support
     const approvalTeamSalesSupportDriver = await browser.newContext();
     const approvalTeamSalesSupportPage = await approvalTeamSalesSupportDriver.newPage();
     const approvalTeamSalesSupportLoginPage = new LoginPage(approvalTeamSalesSupportPage);
@@ -67,19 +60,14 @@ test("Car registration renewal", async ({page, browser}) => {
     const approvalTeamSalesSupportSRActions = new ServiceRequestActions(approvalTeamSalesSupportPage);
 
     await approvalTeamSalesSupportPage.goto("https://iaczkf-test.fa.ocs.oraclecloud.com/");
-    await approvalTeamSalesSupportLoginPage.login("aftersalessupportapprovalteam", "Welcome@1234");
+    await approvalTeamSalesSupportLoginPage.login("retailcustomercare", "Welcome@1234");
     await approvalTeamSalesSupportHomePage.clickServiceRequest();
     await approvalTeamSalesSupportSRActions.searchSR(srNum);
     await approvalTeamSalesSupportSRActions.openSRfromSearchResult();
-    await approvalTeamSalesSupportSRActions.clickActions();
-    await approvalTeamSalesSupportSRActions.clickAssignToMe();
-    await approvalTeamSalesSupportSRActions.assignedTo("After Sales Support Approval Team", "After Sales Support Approval  Team");
+    await approvalTeamSalesSupportSRActions.assignedTo("Customer Care Retail", "Customer Care Retail");
     await approvalTeamSalesSupportSRActions.clickActions();
     await approvalTeamSalesSupportSRActions.clickMarkDeptWorkasComplete();
-    await approvalTeamSalesSupportSRActions.clickActions();
-    await approvalTeamSalesSupportSRActions.clickResolveRejectFromActions();
-    await approvalTeamSalesSupportSRActions.clickResolveOrReject();
-    await approvalTeamSalesSupportSRActions.clickSaveandClose();
+    await approvalTeamSalesSupportSRActions.clickSubmit();
     //End of Approval Team after sales Support
 
     approvalTeamSalesSupportPage.close();
