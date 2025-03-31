@@ -10,7 +10,7 @@ test.beforeEach("Launch the Browser", async ({page}) => {
   await page.goto(cred.url);
 });
 
-test('Verify able to Retire the Lead', async ({ page }) => {
+test('Verify Qualification Scores', async ({ page }) => {
   test.setTimeout(0);
 
   const login = new LoginPage(page);
@@ -32,14 +32,55 @@ test('Verify able to Retire the Lead', async ({ page }) => {
   await lead.selectProduct("Housing Loan");
   await lead.selectfollowUpPref("Branch");
   await lead.clickSaveandContinue();
-
-  const dueDateAssert = page.locator("(//td[@title='Due Date']/following-sibling::td//span)[1]");
-  const createDateAssert = page.locator("(//td[@title='Creation Date']/following-sibling::td//span)[1]");
-  const expirationDateAssert = page.locator("(//td[@title='Expiration Date']/following-sibling::td//span)[1]");
   
-  await expect(dueDateAssert).toHaveText(getThirtiethDayFormatted(25));
-  await expect(createDateAssert).toHaveText(getFormattedDateDDMMYYYY());
-  await expect(expirationDateAssert).toHaveText(getThirtiethDayFormatted(30));
+
+  const scoreAssert = page.locator("(//td[@title='Score']/following-sibling::td//span)[1]");
+  const rankAssert = page.locator("(//td[@title='Rank']/following-sibling::td//span)[1]");
+  
+  await lead.clickQualification();
+  await lead.selectYesforQuestion(0);
+  await lead.clickSave();
+  await lead.clickSummary();
+  await lead.clickActions();
+  await lead.clickGenerateLeadScore();
+  await expect(scoreAssert).toHaveText('20');
+  await expect(rankAssert).toHaveText('Cold');
+
+  await lead.clickQualification();
+  await lead.selectYesforQuestion(1);
+  await lead.clickSave();
+  await lead.clickSummary();
+  await lead.clickActions();
+  await lead.clickGenerateLeadScore();
+  await expect(scoreAssert).toHaveText('40');
+  await expect(rankAssert).toHaveText('Cold');
+
+  await lead.clickQualification();
+  await lead.selectYesforQuestion(2);
+  await lead.clickSave();
+  await lead.clickSummary();
+  await lead.clickActions();
+  await lead.clickGenerateLeadScore();
+  await expect(scoreAssert).toHaveText('60');
+  await expect(rankAssert).toHaveText('Warm');
+
+  await lead.clickQualification();
+  await lead.selectYesforQuestion(3);
+  await lead.clickSave();
+  await lead.clickSummary();
+  await lead.clickActions();
+  await lead.clickGenerateLeadScore();
+  await expect(scoreAssert).toHaveText('80');
+  await expect(rankAssert).toHaveText('Hot');
+
+  await lead.clickQualification();
+  await lead.selectYesforQuestion(4);
+  await lead.clickSave();
+  await lead.clickSummary();
+  await lead.clickActions();
+  await lead.clickGenerateLeadScore();
+  await expect(scoreAssert).toHaveText('100');
+  await expect(rankAssert).toHaveText('Hot');
   
 
   await lead.clickActions();

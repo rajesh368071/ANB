@@ -33,6 +33,7 @@ export class LeadPage {
         this.saveandclose = page.getByRole('button', { name: 'Save and Close' });
         this.saveandcontinue = page.getByRole('button', { name: 'Save and Continue' });
         this.actions = page.locator('[id="__af_Z_window"]').getByRole('button', { name: 'Actions' });
+        this.save = page.getByRole('button', { name: 'Save', exact: true });
 
         //retire Lead
         this.retire = page.getByText('Retire', { exact: true });
@@ -51,6 +52,46 @@ export class LeadPage {
 
         //Calculation Offer
         this.idtype = page.getByRole('combobox', { name: 'ID Type' });
+        
+        //qualificaton 
+        this.qualification = page.getByRole('link', { name: 'Qualification' });
+        this.questions = page.locator("//div[@title='Question']//input[@role='combobox']");
+        this.yes = page.getByRole('listbox').getByText('Yes');
+        this.no = page.getByRole('listbox').getByText('No');
+        this.generateLeadScore = page.getByText('Generate Lead Score');
+        this.summary = page.getByRole('link', { name: 'Summary' });
+    }
+
+    async clickSave() {
+        await test.step('Click Save', async () => {
+            await this.save.click();
+        });
+    }
+
+
+    async selectYesforQuestion(num) {
+        await test.step(`Question ${num}`, async () => {
+            await this.questions.nth(num).click();
+            await this.yes.click();
+        });
+    }
+
+    async clickGenerateLeadScore() {
+        await test.step("Click Generate Lead Score", async () => {
+            await this.generateLeadScore.click();
+        });
+    }
+
+    async clickSummary() {
+        await test.step("Click Qualification", async () => {
+            await this.summary.click();
+        });
+    }
+
+    async clickQualification() {
+        await test.step("Click Qualification", async () => {
+            await this.qualification.click();
+        });
     }
 
     async clickOk() {

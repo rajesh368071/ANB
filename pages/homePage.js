@@ -12,6 +12,7 @@ export class HomePage {
         this.search = page.getByPlaceholder('Search');
         this.searchIcon = page.getByRole('link', { name: 'Search', exact: true });
         this.contact = page.getByRole('link', { name: `Contact: ${this.contactName}` });
+        this.account = page.getByRole('link', { name: `Account: ${this.contactName}` });
         this.servicerequest = page.getByRole('link', { name: 'Service Requests' });
     }
 
@@ -55,6 +56,12 @@ export class HomePage {
     async clickContactName() {
         await test.step("Select Contact Name", async () => {
             await this.contact.click();
+        });
+    }
+
+    async clickAccountName() {
+        await test.step("Select Account Name", async () => {
+            await this.account.click();
         });
     }
 
