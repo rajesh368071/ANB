@@ -25,6 +25,7 @@ module.exports = defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html', { outputFolder: path.join(__dirname, 'reports', `html-report-${moment().format('YYYYMMDD-HHmmss')}`), open: 'never' }],
+    ['junit', { outputFile: 'results.xml' }],
   ],
 
   timeout:100000,
