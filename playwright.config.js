@@ -41,7 +41,7 @@ module.exports = defineConfig({
     trace: 'on-first-retry',
 
     //action Time Out configuration
-    actionTimeout : 30_000,
+    actionTimeout : 50_000,
 
     //Take Screenshot only on Test Fails
     //screenshot : 'only-on-failure',

@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const path = require('node:path');
 
 export class ServiceRequest {
 
@@ -20,14 +21,110 @@ export class ServiceRequest {
 
 
         this.amount = page.getByLabel('Amount', { exact: true });
+        this.dateOfDeath = page.locator("(//label[.='Date Of Death']/../..//input)[1]");
         this.date = page.locator("(//label[.='Date']/../..//input)[1]");
         this.refundDate = page.locator("(//label[.='Refund Date']/../..//input)[1]");
         this.referenceNumber = page.getByLabel('Reference Number', { exact: true });
         this.website = page.getByLabel('Website');
+        
         this.currency = page.getByRole('combobox', { name: 'Currency' });
         this.currencyOpt = (opt) => { return page.getByText(`${opt}`) };
 
+        this.buyerBank =  page.getByRole('combobox', { name: 'Buyer/Acquired Bank' });
+        this.buyerBankOpt = (opt) => { return page.locator(`//ul[@aria-label="Buyer/Acquired Bank"]/li[.="${opt}"]`) };
 
+        this.reasonForRequesting = page.getByRole('combobox', { name: 'Reason for Requesting the' });
+        this.reasonForRequestingOpt =  (opt) => { return page.getByText(`${opt}`) };
+
+        this.customerWillingness = page.getByRole('combobox', { name: 'Customer Willingness' });
+        this.customerWillingnessOpt =  (opt) => { return page.locator(`//ul[@aria-label="Customer Willingness"]/li[.="${opt}"]`); }
+        
+        this.retentionReason =  page.getByRole('combobox', { name: 'Retention Reason' });
+        this.retentionReasonOpt = (opt) => { return page.locator(`//ul[@aria-label="Retention Reason"]/li[.="${opt}"]`) };
+        
+        this.typeOfSettlment = page.getByRole('combobox', { name: 'Type of Settlement' });
+        this.typeOfSettlmentOpt = (opt) => {return page.locator(`//li[.="${opt}"]`); }
+
+        this.attachmentIcon = page.getByRole('link', { name: 'Add Attachment' });
+        this.empLetterAddressed = page.getByLabel('Employer the letter addressed');
+        this.noOfInstallement = page.getByLabel('Number of Instalments for');
+        this.perPaid = page.getByLabel('Percentage Paid');
+        
+
+
+    }
+
+    async selectTypeofSettlment(type) {
+        await test.step("Select Type Of Settlment", async () => {
+            await this.typeOfSettlment.click();
+            await this.typeOfSettlmentOpt(type).click();
+        })
+    }
+
+    async enterNumberofInstalments(value){
+        await test.step("enter Number of installment", async () => {
+            await this.noOfInstallement.fill(value);
+        })
+    }
+
+    async enterPercentagePaid(per){
+        await test.step("Enter Percentage Paid", async () => {
+            await this.perPaid.fill(per);
+        })
+    }
+
+    async selectRetentionReason(retentionreason){
+        await test.step("Select Retention Reason", async () => {
+            await this.retentionReason.click();
+            await this.retentionReasonOpt(retentionreason).click();
+        });
+    }
+
+    async selectCustomerWillingness(customerwillingness){
+        await test.step("Select Customer Willingness", async () => {
+            await this.customerWillingness.click();
+            await this.customerWillingnessOpt(customerwillingness).click();
+            if(customerwillingness !== 'Yes'){
+                await this.retentionReason.waitFor({state:'visible', timeout:5000 });
+            }
+        });
+    }
+
+    async enterEmployeetheLetterAddressed(empletteraddressed) {
+        await test.step("Enter Employee The Letter Address", async () => {
+            await this.empLetterAddressed.fill(empletteraddressed);
+        });
+    }
+
+    async selectReasonforRequesting(reasonforrequesting){
+        await test.step("Select Reason for Requestiong Letter", async () => {
+            await this.reasonForRequesting.click();
+            await this.reasonForRequestingOpt(reasonforrequesting).click();
+        });
+    }
+
+    async selectBuyerBank(buyerbank){
+        await test.step("Select Buyer Bank", async () => {
+            await this.buyerBank.click();
+            await this.buyerBankOpt(buyerbank).click();
+        });
+    }
+
+    async uploadFile(filepath){
+        await test.step("Attach File", async () => {
+            await this.attachmentIcon.click();
+            await this.page.waitForTimeout(5e3);
+            await this.page.getByLabel('Add Files').setInputFiles(filepath);
+            const fileName = path.basename(filepath);
+            await this.page.waitForSelector(`(//span[.="${fileName}"])[1]`, { state: 'visible', timeout: 20000 });
+            await this.ok.click();
+        });
+    }
+
+    async enterDateofDeath(dateofDeath){
+        await test.step("Select Date of Death", async () => {
+            await this.dateOfDeath.fill(dateofDeath);
+        });
     }
 
     async selectAccount(){

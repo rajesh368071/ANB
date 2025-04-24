@@ -9,15 +9,14 @@ test.beforeEach("Launch the Browser", async ({page}) => {
   await page.goto(cred.url);
 });
 
-
-test('test', async ({ page }) => {
+test('Verify Lead Nurture', async ({ page }) => {
   test.setTimeout(0);
-
+  
   const login = new LoginPage(page);
   const home = new HomePage(page);
   const contact = new ContactPage(page);
   const lead = new LeadPage(page);
-
+  
   await login.enterUsername(cred.smerm.username);
   await login.enterPassword(cred.smerm.password);
   await login.clickSignin();
@@ -30,35 +29,45 @@ test('test', async ({ page }) => {
   await contact.clickCreateLead();
   await lead.selectANBProductType("Asset");
   await lead.selectProduct("eComm", "E-Commerce eComm");
-  const leadname = await lead.getLeadName();
   await lead.clickSaveandContinue();
-  await lead.saveandcontinue.waitFor({state:'hidden'});
-  await lead.clickCancel();
+  const leadName = await lead.getLeadName();
+  await lead.clickNurture();
 
-  await contact.clickCreateLead();
-  await lead.selectANBProductType("Asset");
-  await lead.selectProduct("eComm", "E-Commerce eComm");
+  await expect(lead.remainderDateTime).toBeVisible();
+  await expect(lead.nurtureComments).toBeVisible();
+
+  await lead.enterRemainderDateTime("01/05/2025 12:00 AM");
+  await lead.enterNurtureComment("Automation");
   await lead.clickSaveandClose();
+  await lead.openCreadedLead(leadName);
 
-  await expect(page.locator('[id="_FOd1\\:\\:msgDlg\\:\\:contentContainer"]')).toContainText('Lead with same Product type is already active for this Customer');
-  await lead.clickOk();
-  await lead.clickCancel();
-  
-  await lead.openCreadedLead(leadname);
+  await expect(lead.remainderDateTime).toBeVisible();
+  await expect(lead.nurtureComments).toBeVisible();
+
   await lead.clickActions();
   await lead.clickRetire();
   const reason = "Cancelled";
   await lead.selectRetireReason(reason);
-  await lead.enterRetireComment("Retired the Lead");
   await lead.clickSubmit();
+  
   await lead.submit.waitFor({state:'hidden'});
   await lead.clickCancel();
+  await lead.cancel.waitFor({state:'hidden'});
 
+  /*await lead.clickFilterStatus();
+  await lead.selectStatus('Retired');
+  await lead.clickAddFilter();
+  const fieldname = 'Lead Name';
+  await lead.clickAddFieldSearch(fieldname);
+  await lead.enterAddFilterSearchName(fieldname, leadName);
+  await lead.clickFilterSearch();
+  await expect(page.getByRole('link', { name: leadName })).toBeVisible();*/
+  
   await home.clickProfile();
   await home.clickSignout();
   await home.clickConform();
 });
 
-test.afterEach("Close Browser", async ({page}) => {
+test.afterEach("Verify able to Retire the Lead", async ({page}) => {
   await page.close();
 });

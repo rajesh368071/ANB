@@ -1,0 +1,15 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="83.801237">
+<testsuite name="sprint1\EarlySettlmentANBEmp.spec.js" timestamp="2025-04-24T10:40:03.434Z" hostname="chromium" tests="1" failures="0" skipped="0" time="81.356" errors="0">
+<testcase name="Early Settlment (ANB Customer Yes)" classname="sprint1\EarlySettlmentANBEmp.spec.js" time="81.356">
+<properties>
+<property name="slow" value="">
+</property>
+</properties>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\sprint1-EarlySettlmentANBE-614a9-Settlment-ANB-Customer-Yes--chromium\test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

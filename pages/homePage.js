@@ -9,10 +9,10 @@ export class HomePage {
         this.signout = page.getByRole('link', { name: 'Sign Out' });
         this.conform = page.getByRole('button', { name: 'Confirm' });
         this.home = page.getByRole('link', { name: 'Home', exact: true });
-        this.search = page.getByPlaceholder('Search');
+        this.search = page.locator('//input[@aria-label="Search:"]');//page.getByPlaceholder('Search');
         this.searchIcon = page.getByRole('link', { name: 'Search', exact: true });
         this.contact = page.getByRole('link', { name: `Contact: ${this.contactName}` });
-        this.account = page.getByRole('link', { name: `Account: ${this.contactName}` });
+        this.account = page.getByRole('link', { name: `Company: ${this.contactName}` });
         this.servicerequest = page.getByRole('link', { name: 'Service Requests' });
     }
 

@@ -23,15 +23,14 @@ test('Verify able to Retire the Lead', async ({ page }) => {
   await login.enterPassword(cred.smerm.password);
   await login.clickSignin();
   await home.clickHome();
-  await home.enterSearch(cred.contact);
+  await home.enterSearch(cred.account);
   await home.clickSearch();
-  await home.clickContactName();
+  await home.clickAccountName();
   await contact.clickLead();
 
   await contact.clickCreateLead();
   await lead.selectANBProductType("Asset");
-  await lead.selectProduct("Housing Loan");
-  await lead.selectfollowUpPref("Branch");
+  await lead.selectProduct("eComm", "E-Commerce eComm");
   await lead.clickSaveandContinue();
 
   await lead.clickActions();

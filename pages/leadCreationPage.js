@@ -25,8 +25,9 @@ export class LeadPage {
         this.product = page.getByTitle('Search: Product');
         this.productSearchLink = page.getByRole('link', { name: 'Search...' });
         this.productName = page.getByLabel('Name', { exact: true });
+        this.productKeyword = page.getByLabel('Keyword', { exact: true });
         this.productSearch = page.locator('[id="__af_Z_window"]').getByRole('button', { name: 'Search' });
-        this.producSelectRadio = page.getByRole('row', { name: 'Housing loans 005HSL' }).locator('label');
+        this.producSelectRadio = (productname) => { return page.getByRole('row', { name: `${productname}` }).locator('label'); }
         this.ok = page.getByRole('button', { name: 'OK' });
 
         //All Buttons Locators
@@ -41,6 +42,11 @@ export class LeadPage {
         this.retireReasonOpt =  (opt) => { return page.getByRole('listbox').getByText(`${opt}`) };
         this.retireComment = page.getByRole('textbox', { name: 'Comments' });
         this.submit = page.getByRole('button', { name: 'Submit' });
+
+        //nurture
+        this.nurture = page.getByText('Nurture');
+        this.remainderDateTime = page.locator("(//td[@title='Reminder Date and Time']/following-sibling::td//input)[1]");
+        this.nurtureComments = page.locator("//td[@title='Comments']/following-sibling::td//textarea");
 
         //to Get Lead Name
         this.leadName = page.locator("//input[@aria-label='Lead Name']");
@@ -60,6 +66,69 @@ export class LeadPage {
         this.no = page.getByRole('listbox').getByText('No');
         this.generateLeadScore = page.getByText('Generate Lead Score');
         this.summary = page.getByRole('link', { name: 'Summary' });
+
+        //lead filters
+        this.filterSearch =  page.getByRole('button', { name: 'Search' });
+        this.filterAdd = page.getByRole('button', { name: 'Add' });
+        this.filterAddSearch = (addSearch) => { return page.getByRole('menuitem', { name: `${addSearch}` }).locator('td').first(); }
+        this.filterAddSearchText = (fieldName) => { return page.getByLabel(`${fieldName}`, { exact: true }); }
+        this.filterStatus = page.getByLabel('Status', { exact: true });
+        this.filterSelectStatus = (status) => { return page.locator(`//label/input[@_adftrueval='${status}']`); };
+
+    }
+
+    async enterAddFilterSearchName(fieldname , leadname) {
+        await test.step('Select Status', async () => {
+            await this.filterAddSearchText(fieldname).fill(leadname);
+        });
+    }
+
+    async clickAddFieldSearch(searchFieldName) {
+        await test.step('Select Status', async () => {
+            await this.filterAddSearch(searchFieldName).click();
+        });
+    }
+
+    async selectStatus(status) {
+        await test.step('Select Status', async () => {
+            await this.filterSelectStatus(status).click();
+        });
+    }
+
+    async clickFilterSearch() {
+        await test.step('Click Search Filter', async () => {
+            await this.filterSearch.click();
+        });
+    }
+
+    async clickAddFilter() {
+        await test.step('Click Add Filter', async () => {
+            await this.filterAdd.click();
+        });
+    }
+
+    async clickFilterStatus() {
+        await test.step('Click Add Filter', async () => {
+            await this.filterStatus.click();
+        });
+    }
+
+    async enterNurtureComment(comment) {
+        await test.step('Click Nurture Remainder Date and Time', async () => {
+            await this.nurtureComments.fill(comment);
+        });
+    }
+
+    async enterRemainderDateTime(dateandtime) {
+        await test.step('Click Nurture Remainder Date and Time', async () => {
+            await this.remainderDateTime.fill(dateandtime);
+        });
+    }
+
+    async clickNurture() {
+        await test.step('Click Nurture', async () => {
+            await this.nurture.click();
+        });
     }
 
     async clickSave() {
@@ -137,13 +206,32 @@ export class LeadPage {
         });
     }
 
-    async selectProduct(name) {
+    async selectProduct(name, productname) {
         await test.step("Select Product", async () => {
             await this.product.click();
             await this.productSearchLink.click();
-            await this.productName.fill(name);
+            await this.productKeyword.fill(name);
             await this.productSearch.click();
-            await this.producSelectRadio.click();
+
+            /*const firstLocator = this.producSelectRadio(productname);
+            if (await firstLocator.count() > 0) {
+                await firstLocator.click();
+            } else {
+                const secondLocator = page.getByRole('table', { name: 'Picker Results table' }).locator('label');
+                if (await secondLocator.count() > 0) {
+                await secondLocator.click();
+                }
+            }*/
+
+            try {
+                const element = this.producSelectRadio(productname);
+                element.waitFor({ state: 'visible', timeout: 6000 });
+                await element.click();
+            } catch (error) {
+                const secondLocator = page.getByRole('table', { name: 'Picker Results table' }).locator('label');
+                await secondLocator.click();
+            }
+
             await this.ok.click();
         });
     }

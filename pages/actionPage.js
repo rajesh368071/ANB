@@ -6,6 +6,8 @@ export class Actions {
         this.page = page;
 
         this.ok = page.getByRole('button', { name: 'OK' });
+        
+        this.save = page.getByRole('button', { name: 'Save', exact: true });
         this.saveandclose = page.getByRole('button', { name: 'Save and Close' });
         this.submit = page.getByRole('button', { name: 'Submit' });
 
@@ -18,8 +20,35 @@ export class Actions {
 
         this.actionBtn = page.getByRole('button', { name: 'Actions' }).first();
         this.markdeptworkcomplete = page.getByText('Mark Dept Work Completed');
+        this.markdeptworkinprogress = page.getByText('Mark Dept Work In Progress');
         this.submit = page.getByRole('button', { name: 'Submit' });
+        this.cancel = page.getByRole('button', { name: 'Cancel' });
+        this.discardIssue = page.locator('//button[.="Discard Changes"]/following-sibling::button');
 
+    }
+
+    async clickCancel() {
+        await test.step("Click cancel", async () => {
+            await this.cancel.click();
+        });
+    }
+
+    async clickSaveandClose() {
+        await test.step("Click Save and Close", async () => {
+            await this.saveandclose.click();
+        });
+    }
+
+    async clickMarkDeptWorkInProgress() {
+        await test.step("Click on Mark Dept Work In Progress", async () => {
+            await this.markdeptworkinprogress.click();
+        });
+    }
+
+    async clickSave() {
+        await test.step("Click on Mark Dept Work In Progress", async () => {
+            await this.save.click();
+        });
     }
 
     async clickActionResOrRej() {
@@ -39,10 +68,16 @@ export class Actions {
         await this.page.waitForTimeout(5e3);
     }
 
-    async assignedTo(assignToUsername) {
+    async assignedTo(assignToUsername) {       
         const patch = (text) => `//td[@title='Assigned To']/following-sibling::td//*[@title='${text}']`;
         const assign = this.page.locator(patch(assignToUsername));
-        while (!(await assign.isVisible())) {
+        //while (!(await assign.isVisible())) {
+            //await this.refreshSR();
+        //}
+        for (let attempts = 0; attempts < 5; attempts++) {
+            if (await assign.isVisible()) {
+                break;
+            }
             await this.refreshSR();
         }
     }
@@ -65,8 +100,8 @@ export class Actions {
 
     async clickSRNumberfromResult(data) {
         await test.step("Click SR from Search Result", async () => {
-            
             await this.srnumber(data).click();
+            await this.page.waitForSelector("(//div[.='Messages'])[3]", {timeout:20000, state:'visible'});
         });
     }
 
@@ -87,6 +122,11 @@ export class Actions {
     async clickSubmit() {
         await test.step("Click SR from Search Result", async () => {
             await this.submit.click();
+            await this.page.waitForTimeout(4e3);
+            if (await this.discardIssue.isVisible()) {
+                await this.discardIssue.click();
+                await this.clickSaveandClose();
+            }
             await this.page.waitForSelector("//h1[.='Service Requests']", {timeout: 10000, state: 'visible'});
         });
     }
